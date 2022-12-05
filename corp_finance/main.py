@@ -9,8 +9,7 @@ market_values = dp.marketValuesList()
 # print(sum(market_values["Close_Extreme"]))
 
 
-# arr = gaps_outside_st(market_values)
-# simple_regression(arr,"Rrng",[])
+# cl.simple_regression(market_values,"RR",['Gap','ATR','AR','V_coded','Rvol'])
 # simple_regression(market_values,"Close_Extreme",['Chng','Rrng','Rvol','VIX_Coded'])
 
 # closeExtremeRate(market_values)

@@ -4,21 +4,26 @@ import pandas_datareader.data as web
 import numpy as np
 
 def clients()->list:
-    start = dt.datetime(2006,1,1)
+    start = dt.datetime(1994,1,1)
     end = dt.datetime(2022,10,20)
     vix_close = pd.read_csv('VIX_History.csv')['CLOSE'].values.tolist()
-    tlt_close = pd.DataFrame(web.DataReader('TLT', 'yahoo', start, end)["Close"]).values.tolist()
     spy = pd.DataFrame(web.DataReader('SPY', 'yahoo', start, end)).values.tolist()
-    return vix_close,tlt_close,spy
+    return vix_close,spy
+    # tlt_close = pd.DataFrame(web.DataReader('TLT', 'yahoo', start, end)["Close"]).values.tolist()
+    # return vix_close,tlt_close,spy
 
 def getMergedValues()->list:
-    vix_close,tlt_close,spy = clients()
+    vix_close,spy = clients()
     values_merged = []
-    for i in range(-len(tlt_close),0,1):
-        values_merged.append([vix_close[i],tlt_close[i][0],spy[i][2],spy[i][0],spy[i][1],spy[i][3],spy[i][4]])
+    for i in range(-len(spy),0,1):
+        values_merged.append([vix_close[i],spy[i][2],spy[i][0],spy[i][1],spy[i][3],spy[i][4]])
     values_merged = pd.DataFrame(values_merged)
-    values_merged.columns = ['VIX','TLT','Open','High','Low','Close','Volume']
+    values_merged.columns = ['VIX','Open','High','Low','Close','Volume']
     return values_merged
+    # vix_close,tlt_close,spy = clients()
+    # for i in range(-len(tlt_close),0,1):
+    #     values_merged.append([vix_close[i],tlt_close[i][0],spy[i][2],spy[i][0],spy[i][1],spy[i][3],spy[i][4]])
+    # values_merged.columns = ['VIX','TLT','Open','High','Low','Close','Volume']
 
 def marketValuesList()->dict:
     all_val = getMergedValues()
@@ -31,11 +36,13 @@ def marketValuesList()->dict:
     all_val = addAR(all_val)
     all_val = addRTR(all_val)
     all_val = addRR(all_val)
+    all_val = addMovingAverages(all_val)
+    all_val = addCloseAtExtreme(all_val)
     print(all_val[1:])
-    # all_val = close_extreme_boolean(all_val)
     # all_val = close_held_open_rate(all_val)
     # all_val.columns = ["VIX","VIX_Coded","TLT","Open","High","Low","Close","Volume","Chng","Cl_Ex","Wrong","Rvol","ATR","Rrng"]
     # all_val = all_val[19:len(all_val)]
+    print(all_val.columns)
     return(all_val[1:])
 
 def addRangeToday(df):
@@ -85,7 +92,25 @@ def addRR(df):
     df['RR'] = df['Range']/df['AR']
     return df
 
+def addMovingAverages(df):
+    df['MA20'] = df['Close'].rolling(20,0).mean()
+    df['MA50'] = df['Close'].rolling(50,0).mean()
+    df['MA100'] = df['Close'].rolling(100,0).mean()
+    return df
 
+def checkCloseAtExtreme(row):
+    if (row['High']-row['Close']) / (row['High']-row['Low']) <= 0.2:
+        return 1
+    elif (row['Close']-row['Low']) / (row['High']-row['Low']) <= 0.2:
+        return -1
+    else:
+        return 0
+
+def addCloseAtExtreme(df):
+    df['ExCl'] = df.apply(checkCloseAtExtreme, axis=1)
+    return df    
+
+    
 # def close_extreme_boolean(lst:list):
 #     for i in range(len(lst)):
 #         high, low, close = lst[i][4], lst[i][5], lst[i][6]
