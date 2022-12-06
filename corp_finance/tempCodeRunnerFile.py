@@ -1,0 +1,1 @@
+market_values['High'][i:i-1]

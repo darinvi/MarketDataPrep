@@ -13,3 +13,8 @@ market_values = dp.marketValuesList()
 # simple_regression(market_values,"Close_Extreme",['Chng','Rrng','Rvol','VIX_Coded'])
 
 # closeExtremeRate(market_values)
+close_rate = market_values['ExCl_Rate'].values.tolist()
+for i in range(len(market_values['High'])):
+    print(market_values['ExCl_Rate'][i:i+1])
+
+print(market_values)
