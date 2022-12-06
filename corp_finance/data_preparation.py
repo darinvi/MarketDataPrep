@@ -2,11 +2,11 @@ import datetime as dt
 import pandas as pd
 import pandas_datareader.data as web
 import numpy as np
-from init_data import getMergedValues
+from init_data import getFinalMergedValues
 
 
 def marketValuesList()->dict:
-    all_val = getMergedValues()
+    all_val = getFinalMergedValues()
     all_val = addRangeToday(all_val)
     all_val = addTrueRange(all_val)
     all_val = recodeVolatility(all_val)
@@ -112,5 +112,5 @@ def addCloseHeldOpen(df):
     return df
 
 def addOpenHeldRate(df):
-    df['Hel_Rate'] = abs(df['Held_Open']).rolling(100,0).mean()
+    df['Held_Rate'] = abs(df['Held_Open']).rolling(100,0).mean()
     return df
