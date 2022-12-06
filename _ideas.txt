@@ -1,0 +1,8 @@
+1. Observe the action in the outlier states for VIX. Compare to action in normal days.
+-closes held open?
+-closes close to extreme?
+-patterns for days following?
+
+2. Rate of extreme closes dependednt on vix?
+-add a column for extreme closes in the past 100 days/gaps held in the past 100 days/etc.
+-regress the column by VIX 
