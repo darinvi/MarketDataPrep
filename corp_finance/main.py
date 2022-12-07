@@ -2,19 +2,20 @@ import data_preparation as dp
 import calculations as cl
 import filtered_data as fd
 
-market_values = dp.marketValuesList()
+df = dp.marketValuesList()
 
-# extreme_close_vix_counter(market_values)
+# extreme_close_vix_counter(df)
 
-# print(sum(market_values["Close_Extreme"]))
+# print(sum(df["Close_Extreme"]))
+
+# cl.regression(df,"RR",['Gap','ATR','AR','V_coded','Rvol'])
+
+# closeExtremeRate(df)
+# close_rate = df['ExCl_Rate'].values.tolist()
+# for i in range(len(df['High'])):
+#     print(df['ExCl_Rate'][i:i+1])
 
 
-# cl.simple_regression(market_values,"RR",['Gap','ATR','AR','V_coded','Rvol'])
-# simple_regression(market_values,"Close_Extreme",['Chng','Rrng','Rvol','VIX_Coded'])
+# # print(df['V_coded'].unique())
 
-# closeExtremeRate(market_values)
-# close_rate = market_values['ExCl_Rate'].values.tolist()
-# for i in range(len(market_values['High'])):
-#     print(market_values['ExCl_Rate'][i:i+1])
-
-print(market_values)
+cl.openHeldBasedOnVix(df)
