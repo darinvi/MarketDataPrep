@@ -18,4 +18,13 @@ df = dp.marketValuesList()
 
 # # print(df['V_coded'].unique())
 
-cl.openHeldBasedOnVix(df)
+# cl.openHeldBasedOnVix(df)
+
+# cl.regression(df,"RR",['Gap','ATR','AR','V_coded','Rvol'])
+# cl.distributionBasedOnVix(df,'ExCl')
+# cl.distributionBasedOnVix(df,'Held_Open')
+
+filtered_std = fd.gapsOutsideStandardDeviation(df)
+cl.distributionBasedOnVix(filtered_std,'Held_Open')
+# print(filtered_std)
+# print(filtered_std['Gap'])

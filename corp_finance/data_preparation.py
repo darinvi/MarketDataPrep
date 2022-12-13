@@ -21,16 +21,18 @@ def marketValuesList()->dict:
     all_val = addCloseExtremeRate(all_val)
     all_val = addCloseHeldOpen(all_val)
     all_val = addOpenHeldRate(all_val)
+    all_val = addStandardDeviation(all_val,'Gap')
+    all_val = addMean(all_val,'Gap')
     print(all_val.columns)
-    return(all_val[1:])
+    return(all_val[200:])
 
 def addRangeToday(df):
     df['Range'] = df['High'] - df['Low']
     return df
 
 def recodeVolatility(df):
-    conditions = [(df['VIX'] < 10),(df['VIX']//10==1),(df['VIX']//10==2),(df['VIX']//10==3),(df['VIX']//10==4),(df['VIX']//10>4)]
-    values = [1,2,3,4,5,6]
+    conditions = [(df['VIX'] < 10),(df['VIX']//10==1),(df['VIX']//10==2),(df['VIX']//10==3),(df['VIX']//10>3)]
+    values = [1,2,3,4,5]
     df['V_coded'] = np.select(conditions,values)
     return df
 
@@ -38,11 +40,13 @@ def addGap(df)->dict:
     df['Gap'] = (df['Open'] - df['Close'].shift(1))/df['Close'].shift(1)*100
     return df
 
-def addGapStandardDeviation(df,col):
-    df[f'{col}_std'] = df[col].rolling(200,0).std()
+def addStandardDeviation(df,col):
+    df[f'{col}_std'] = df[col].shift(1).rolling(200,0).std()
+    return df
 
-def addGapStandardDeviation(df,col):
-    df[f'{col}_std'] = df[col].rolling(200,0).mean()
+def addMean(df,col):
+    df[f'{col}_mean'] = df[col].shift(1).rolling(200,0).mean()
+    return df
 
 def addRvol(df):
     df['Rvol'] = df['Volume']/df['Volume'].shift(1).rolling(window=20,min_periods=0).mean()
