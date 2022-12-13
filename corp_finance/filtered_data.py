@@ -6,9 +6,6 @@ def gapsRelativeToStandardDeviation(df,position,multiplicator):
         df_filtered = df[(df['Gap']>df['Gap_mean']+df['Gap_std']*multiplicator) | (df['Gap']<df['Gap_mean']-df['Gap_std']*multiplicator)]
     elif position.lower() == 'in': 
         df_filtered = df[abs(df['Gap']-df['Gap_mean'])<df['Gap_std']/multiplicator]
-        # df_filtered = df[((df['Gap']<df['Gap_mean']+df['Gap_std']/multiplicator) & df['Gap']>df['Gap_mean']) \
-
-        #     | ((df['Gap']>df['Gap_mean']-df['Gap_std']/multiplicator) & df['Gap']<df['Gap_mean'])]
     return df_filtered
 
 def closeAtExtremeOnly(df):

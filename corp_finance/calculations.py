@@ -8,9 +8,6 @@ def regression(df,dep,indep):
 def extremeCloseVixCounter(df):
     pass
 
-def closeHeldGap(df_filltered):
-    pass
-
 def distributionBasedOnVix(df,col):
     for val in range(1,6):
         ultra_filtered = df[(df[col]!=0) & (df['V_coded']==val)]
