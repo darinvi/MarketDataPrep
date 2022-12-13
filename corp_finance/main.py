@@ -1,6 +1,7 @@
 import data_preparation as dp
 import calculations as cl
 import filtered_data as fd
+import main_menu_functions as mm
 
 df = dp.marketValuesList()
 
@@ -20,11 +21,20 @@ df = dp.marketValuesList()
 
 # cl.openHeldBasedOnVix(df)
 
-# cl.regression(df,"RR",['Gap','ATR','AR','V_coded','Rvol'])
+# cl.regression(df,"Held_Open",['Held_Rate'])
 # cl.distributionBasedOnVix(df,'ExCl')
 # cl.distributionBasedOnVix(df,'Held_Open')
 
-filtered_std = fd.gapsOutsideStandardDeviation(df)
-cl.distributionBasedOnVix(filtered_std,'Held_Open')
+# filtered_std = fd.gapsRelativeToStandardDeviation(df,'in',2)
+# print(len(filtered_std))
+# print(filtered_std)
+# for i in range(len(filtered_std)):
+#     print(filtered_std['Gap'][i:i+1])
+#     print(filtered_std['Gap_mean'][i:i+1])
+#     print(filtered_std['Gap_std'][i:i+1])
+
+# cl.distributionBasedOnVix(filtered_std,'Held_Open')
 # print(filtered_std)
 # print(filtered_std['Gap'])
+
+mm.choosingVariablesForRegression(df)
