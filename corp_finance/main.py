@@ -25,9 +25,9 @@ df = dp.marketValuesList()
 # cl.distributionBasedOnVix(df,'ExCl')
 # cl.distributionBasedOnVix(df,'Held_Open')
 
-# filtered_std = fd.gapsRelativeToStandardDeviation(df,'in',2)
+filtered_std = fd.gapsRelativeToStandardDeviation(df,'out',1)
 # print(len(filtered_std))
-# print(filtered_std)
+print(filtered_std['ExCl'].sum()/len(filtered_std))
 # for i in range(len(filtered_std)):
 #     print(filtered_std['Gap'][i:i+1])
 #     print(filtered_std['Gap_mean'][i:i+1])
@@ -37,4 +37,4 @@ df = dp.marketValuesList()
 # print(filtered_std)
 # print(filtered_std['Gap'])
 
-mm.choosingVariablesForRegression(df)
+# mm.choosingVariablesForRegression(df)

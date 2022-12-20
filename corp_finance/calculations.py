@@ -5,7 +5,7 @@ def regression(df,dep,indep):
     regg = smf.ols(formula=f"{dep} ~ {' + '.join(indep)}", data=df).fit()
     print(regg.summary())
 
-def extremeCloseVixCounter(df):
+def extremeCloseCounter(df):
     pass
 
 def distributionBasedOnVix(df,col):

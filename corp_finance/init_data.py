@@ -14,7 +14,7 @@ def mergeRateAndSpy(spy_lst,rates_lst):
 def getRatesAndSpyAsList():
     start = dt.datetime(1994,1,1)
     end = dt.datetime(2022,10,19)
-    spy = pd.DataFrame(web.DataReader('SPY','yahoo', start, end))
+    spy = pd.DataFrame(web.DataReader(['SPY'],'yahoo', start, end))
     spy.reset_index(inplace=True)
     spy = spy.values.tolist()
     funds_rate = pd.read_csv('FEDFUNDS.csv').values.tolist()

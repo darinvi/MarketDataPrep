@@ -91,7 +91,7 @@ def checkCloseAtExtreme(row):
     if (row['High']-row['Close']) / (row['High']-row['Low']) <= 0.2:
         return 1
     elif (row['Close']-row['Low']) / (row['High']-row['Low']) <= 0.2:
-        return -1
+        return 1
     else:
         return 0
 
