@@ -9,18 +9,18 @@ def marketValuesList()->dict:
     all_val = getFinalMergedValues()
     all_val = addRangeToday(all_val)
     all_val = addTrueRange(all_val)
-    all_val = recodeVolatility(all_val)
+    # all_val = recodeVolatility(all_val)
     all_val = addGap(all_val)
     all_val = addRvol(all_val)
     all_val = addATR(all_val)
     all_val = addAR(all_val)
     all_val = addRTR(all_val)
     all_val = addRR(all_val)
-    all_val = addMovingAverages(all_val)
-    all_val = addCloseAtExtreme(all_val)
-    all_val = addCloseExtremeRate(all_val)
-    all_val = addCloseHeldOpen(all_val)
-    all_val = addOpenHeldRate(all_val)
+    # all_val = addMovingAverages(all_val)
+    # all_val = addCloseAtExtreme(all_val)
+    # all_val = addCloseExtremeRate(all_val)
+    # all_val = addCloseHeldOpen(all_val)
+    # all_val = addOpenHeldRate(all_val)
     all_val = addStandardDeviation(all_val,'Gap')
     all_val = addMean(all_val,'Gap')
     print(all_val.columns)
@@ -91,7 +91,7 @@ def checkCloseAtExtreme(row):
     if (row['High']-row['Close']) / (row['High']-row['Low']) <= 0.2:
         return 1
     elif (row['Close']-row['Low']) / (row['High']-row['Low']) <= 0.2:
-        return 1
+        return -1
     else:
         return 0
 

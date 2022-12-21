@@ -1,6 +1,7 @@
 import pandas as pd 
 import datetime as dt
-import pandas_datareader as web
+from pandas_datareader import data as web
+import yfinance as yf
 
 def stringToTimeStamp(row):
     row[0] = pd.to_datetime(row[0],format='%m/%d/%Y')
@@ -12,9 +13,12 @@ def mergeRateAndSpy(spy_lst,rates_lst):
     return merged
 
 def getRatesAndSpyAsList():
-    start = dt.datetime(1994,1,1)
+    yf.pdr_override()
+    start = dt.datetime(1994,1,3)
     end = dt.datetime(2022,10,19)
-    spy = pd.DataFrame(web.DataReader(['SPY'],'yahoo', start, end))
+    spy = web.get_data_yahoo('SPY',start,end)
+    spy = pd.DataFrame(spy)
+    # spy = pd.DataFrame(web.DataReader('SPY','yahoo', start, end))
     spy.reset_index(inplace=True)
     spy = spy.values.tolist()
     funds_rate = pd.read_csv('FEDFUNDS.csv').values.tolist()
@@ -30,9 +34,9 @@ def getFinalMergedValues()->list:
     vix_close,spy_and_funds = clients()
     values_merged = []
     for i in range(-len(spy_and_funds),0,1):
-        values_merged.append([vix_close[i],spy_and_funds[i][3],spy_and_funds[i][1],spy_and_funds[i][2],spy_and_funds[i][4],spy_and_funds[i][5],spy_and_funds[i][7]])
+        values_merged.append([f'{spy_and_funds[i][0].year}/{spy_and_funds[i][0].month}/{spy_and_funds[i][0].day}',vix_close[i],spy_and_funds[i][1],spy_and_funds[i][2],spy_and_funds[i][3],spy_and_funds[i][4],spy_and_funds[i][6],spy_and_funds[i][7]])
     values_merged = pd.DataFrame(values_merged)
+    values_merged = values_merged.set_index(values_merged.columns[0])
     values_merged.columns = ['VIX','Open','High','Low','Close','Volume','Rate']
     return values_merged
-
 
