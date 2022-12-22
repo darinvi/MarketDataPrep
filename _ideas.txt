@@ -6,3 +6,5 @@
 2. Rate of extreme closes dependednt on vix?
 -add a column for extreme closes in the past 100 days/gaps held in the past 100 days/etc.
 -regress the column by VIX 
+
+3. bollinger bands but based on RR instead of gaps

@@ -9,20 +9,21 @@ def marketValuesList()->dict:
     all_val = getFinalMergedValues()
     all_val = addRangeToday(all_val)
     all_val = addTrueRange(all_val)
-    # all_val = recodeVolatility(all_val)
+    all_val = recodeVolatility(all_val)
     all_val = addGap(all_val)
     all_val = addRvol(all_val)
-    all_val = addATR(all_val)
-    all_val = addAR(all_val)
-    all_val = addRTR(all_val)
-    all_val = addRR(all_val)
-    # all_val = addMovingAverages(all_val)
-    # all_val = addCloseAtExtreme(all_val)
-    # all_val = addCloseExtremeRate(all_val)
-    # all_val = addCloseHeldOpen(all_val)
-    # all_val = addOpenHeldRate(all_val)
+    # all_val = addATR(all_val)
+    # all_val = addAR(all_val)
+    # all_val = addRTR(all_val)
+    # all_val = addRR(all_val)
+    all_val = addNextDayContinuation(all_val)
+    all_val = addCloseAtExtreme(all_val)
+    all_val = addCloseHeldOpen(all_val)
     all_val = addStandardDeviation(all_val,'Gap')
     all_val = addMean(all_val,'Gap')
+    # all_val = addMovingAverages(all_val)
+    # all_val = addCloseExtremeRate(all_val)
+    # all_val = addOpenHeldRate(all_val)
     print(all_val.columns)
     return(all_val[200:])
 
@@ -99,22 +100,34 @@ def addCloseAtExtreme(df):
     df['ExCl'] = df.apply(checkCloseAtExtreme, axis=1)
     return df    
 
-def addCloseExtremeRate(df):
-    df['ExCl_Rate'] = abs(df['ExCl']).rolling(100,0).mean()
-    return df
+# def addCloseExtremeRate(df):
+#     df['ExCl_Rate'] = abs(df['ExCl']).rolling(100,0).mean()
+#     return df
 
 def checkCloseHeldOpen(row):
-    if row['Close']>row['Open'] and row['Gap'] > 0:
+    close_upper = bool(row['Close']>row['Open'] and row['Gap'] > 0)
+    close_lower = bool(row['Close']<row['Open'] and row['Gap'] < 0)
+    if close_upper or close_lower:
         return 1
-    elif row['Close']<row['Open'] and row['Gap'] < 0:
-        return -1
     else:
-        return 0
+        return 0 
 
 def addCloseHeldOpen(df):
     df['Held_Open'] = df.apply(checkCloseHeldOpen,axis=1)
     return df
 
-def addOpenHeldRate(df):
-    df['Held_Rate'] = abs(df['Held_Open']).rolling(100,0).mean()
+# def addOpenHeldRate(df):
+#     df['Held_Rate'] = abs(df['Held_Open']).rolling(100,0).mean()
+#     return df
+
+def addNextDayContinuation(df):
+    df['Close_tomorrow'] = df['Close'].shift(-1)
+    df['D2'] = df.apply(checkContinuation,axis=1)
+    del df['Close_tomorrow']
     return df
+
+def checkContinuation(row):
+    if (row['Close']-row['Open'])*(row['Close_tomorrow']-row['Close'])>0:
+        return 1
+    else:
+        return 0

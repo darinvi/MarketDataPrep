@@ -3,14 +3,29 @@ import calculations as cl
 import filtered_data as fd
 import main_menu_functions as mm
 
-df = dp.marketValuesList()
 
-cl.regression(df,"RR",['Gap','ATR','AR','Rvol'])
-# filtered_std = fd.gapsRelativeToStandardDeviation(df,'out',1)
+df = dp.marketValuesList() 
+df = df[df['Gap']<0]
+fdf= fd.gapsRelativeToStandardDeviation(df,'out',2)
+# held_df = fdf[fdf['Held_Open']==1]
+# print(len(fdf),len(held_df),len(held_df)/len(fdf))
+cl.extremeCloseAndFadeContinuation(fdf,rvol=1)
+# cl.extremeCloseAndFadeContinuation(df)
 
-# # print(df['V_coded'].unique())
+# print(filtered_std)
+
+
+
+
+
+# print(len(df))
+# print(len(filtered_std))
+# print(len(filtered_std)/len(df))
+
 
 # cl.openHeldBasedOnVix(df)
+
+# cl.regression(df,"RR",['Gap','ATR','AR','Rvol'])
 
 # cl.regression(df,"Held_Open",['Held_Rate'])
 # cl.distributionBasedOnVix(df,'ExCl')
@@ -23,7 +38,7 @@ cl.regression(df,"RR",['Gap','ATR','AR','Rvol'])
 #     print(filtered_std['Gap_mean'][i:i+1])
 #     print(filtered_std['Gap_std'][i:i+1])
 
-# cl.distributionBasedOnVix(filtered_std,'Held_Open')
+# cl.distributionBasedOnVix(fdf,'Held_Open')
 # print(filtered_std)
 # print(filtered_std['Gap'])
 

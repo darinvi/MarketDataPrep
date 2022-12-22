@@ -8,10 +8,6 @@ def gapsRelativeToStandardDeviation(df,position,multiplicator):
         df_filtered = df[abs(df['Gap']-df['Gap_mean'])<df['Gap_std']/multiplicator]
     return df_filtered
 
-def closeAtExtremeOnly(df):
-    df_filtered = df[df['ExCl']!=0]
-    return df_filtered
-
 def filterByVixValue(df,key):
     df_filteed = df[df['V_coded']==key]
     return df_filteed

@@ -1,2 +1,2 @@
 
-    vix_close,spy_and_funds = clients()
+# filtered_std = fd.gapsRelativeToStandardDeviation(df,'out',2)
