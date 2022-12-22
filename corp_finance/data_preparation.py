@@ -12,16 +12,17 @@ def marketValuesList()->dict:
     all_val = recodeVolatility(all_val)
     all_val = addGap(all_val)
     all_val = addRvol(all_val)
-    # all_val = addATR(all_val)
-    # all_val = addAR(all_val)
+    all_val = addATR(all_val)
+    all_val = addYesterdayClose(all_val)
+    all_val = addAR(all_val)
     # all_val = addRTR(all_val)
-    # all_val = addRR(all_val)
+    all_val = addRR(all_val)
+    all_val = addMovingAverages(all_val)
     all_val = addNextDayContinuation(all_val)
     all_val = addCloseAtExtreme(all_val)
     all_val = addCloseHeldOpen(all_val)
     all_val = addStandardDeviation(all_val,'Gap')
     all_val = addMean(all_val,'Gap')
-    # all_val = addMovingAverages(all_val)
     # all_val = addCloseExtremeRate(all_val)
     # all_val = addOpenHeldRate(all_val)
     print(all_val.columns)
@@ -84,8 +85,8 @@ def addRR(df):
 
 def addMovingAverages(df):
     df['MA20'] = df['Close'].rolling(20,0).mean()
-    df['MA50'] = df['Close'].rolling(50,0).mean()
-    df['MA100'] = df['Close'].rolling(100,0).mean()
+    # df['MA50'] = df['Close'].rolling(50,0).mean()
+    # df['MA100'] = df['Close'].rolling(100,0).mean()
     return df
 
 def checkCloseAtExtreme(row):
@@ -130,4 +131,8 @@ def checkContinuation(row):
     if (row['Close']-row['Open'])*(row['Close_tomorrow']-row['Close'])>0:
         return 1
     else:
-        return 0
+        return 0 
+
+def addYesterdayClose(df):
+    df['YCl'] = df['Close'].shift(1)
+    return df

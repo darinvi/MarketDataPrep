@@ -1,5 +1,4 @@
 import statsmodels.formula.api as smf
-from data_preparation import addMovingAverages
 
 def regression(df,dep,indep):
     regg = smf.ols(formula=f"{dep} ~ {' + '.join(indep)}", data=df).fit()
@@ -24,4 +23,17 @@ def extremeCloseContinuation(df,rvol,direction):
     print(len(fade_and_extreme_continuation),len(fade_and_extreme))
     print(f'{len(fade_and_extreme_continuation)/len(fade_and_extreme)*100:.2f}%')
 
-    
+def gapDownCloseUp(df):
+    #gap down over 1 std in an uptrend
+    df_gap = df[(df['Gap']<0) & (df['Open']<df['MA20']) & (df['Close']>df['YCl']) & (df['RR']>1) & (df['Rvol']>1)]
+    engulf = df_gap[df_gap['D2']==1]
+    print(len(df_gap))
+    print(len(engulf))
+    print(len(engulf)/len(df_gap))
+
+# def gapDownCloseUp(df):
+#     df_gap = df[(df['Gap']<0) & (df['Open']<df['MA20']) & (df['Close']>df['YCl']) & (df['RR']>1) & (df['Rvol']>1)]
+#     engulf = df_gap[df_gap['D2']==1]
+#     print(len(df_gap))
+#     print(len(engulf))
+#     print(len(engulf)/len(df_gap))

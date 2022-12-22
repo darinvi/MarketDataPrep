@@ -5,9 +5,10 @@ import main_menu_functions as mm
 
 
 df = dp.marketValuesList()
-fd.upTrend(df)
+df = fd.upTrend(df)
+df= fd.gapsRelativeToStandardDeviation(df,'out',1)
+cl.gapDownCloseUp(df)
 # df = df[df['Gap']>0]
-# fdf= fd.gapsRelativeToStandardDeviation(df,'out',2)
 # held_df = fdf[fdf['Held_Open']==1]
 # print(len(fdf),len(held_df),len(held_df)/len(fdf))
 # cl.extremeCloseContinuation(fdf,1,'hold')
