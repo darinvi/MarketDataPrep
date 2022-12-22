@@ -8,3 +8,5 @@
 -regress the column by VIX 
 
 3. bollinger bands but based on RR instead of gaps
+
+4. gap down & close upper 20% while 20>50>100sma. Next day continuation?

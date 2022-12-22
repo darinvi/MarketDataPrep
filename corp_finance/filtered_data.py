@@ -1,5 +1,6 @@
 import statistics
 import pandas as pd
+from data_preparation import addMovingAverages
 
 def gapsRelativeToStandardDeviation(df,position,multiplicator):
     if position.lower() == 'out':
@@ -18,3 +19,7 @@ def filterByTrend(df,ma_short_term,ma_long_term,direction):
     elif direction.lower() == 'down':
         df_filteed = df[df[f'MA{ma_short_term}']<df[f'MA{ma_long_term}']]
     return df_filteed
+
+def upTrend(df):
+    df = df[(df['Close'].rolling(20,0).mean()>df['Close'].rolling(50,0).mean()) & (df['Close'].rolling(50,0).mean()>df['Close'].rolling(100,0).mean())]
+    print(df)
