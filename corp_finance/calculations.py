@@ -24,16 +24,23 @@ def extremeCloseContinuation(df,rvol,direction):
     print(f'{len(fade_and_extreme_continuation)/len(fade_and_extreme)*100:.2f}%')
 
 def gapDownCloseUp(df):
-    #gap down over 1 std in an uptrend
-    df_gap = df[(df['Gap']<0) & (df['Open']<df['MA20']) & (df['Close']>df['YCl']) & (df['RR']>1) & (df['Rvol']>1)]
+    # df_gap = df[(df['Gap']<0) & (df['Low']<df['MA50']) & (df['Close']>df['YCl'])]
+    df_gap = df[(df['Open']>df['MA50']) & (df['Low']<df['MA50']) & (df['Close']>df['Open'])]
     engulf = df_gap[df_gap['D2']==1]
     print(len(df_gap))
     print(len(engulf))
     print(len(engulf)/len(df_gap))
 
 # def gapDownCloseUp(df):
-#     df_gap = df[(df['Gap']<0) & (df['Open']<df['MA20']) & (df['Close']>df['YCl']) & (df['RR']>1) & (df['Rvol']>1)]
+#     # df_gap = df[(df['Gap']<0) & (df['Open']<df['MA50']) & (df['Close']>df['Open']) & (df['RR']>1) & (df['Rvol']>1)]
+#     df_gap = df[(df['Gap']<0) & (df['Open']<df['MA50']) & (df['Close']>df['Open'])]
 #     engulf = df_gap[df_gap['D2']==1]
 #     print(len(df_gap))
 #     print(len(engulf))
 #     print(len(engulf)/len(df_gap))
+
+def greenDayAfterRedDays(df):
+    pass
+
+def breakFakeAtMa(df):
+    pass

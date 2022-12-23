@@ -84,8 +84,8 @@ def addRR(df):
     return df
 
 def addMovingAverages(df):
-    df['MA20'] = df['Close'].rolling(20,0).mean()
-    # df['MA50'] = df['Close'].rolling(50,0).mean()
+    # df['MA20'] = df['Close'].rolling(20,0).mean()
+    df['MA50'] = df['Close'].rolling(50,0).mean()
     # df['MA100'] = df['Close'].rolling(100,0).mean()
     return df
 

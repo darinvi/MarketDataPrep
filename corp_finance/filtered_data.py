@@ -21,5 +21,6 @@ def filterByTrend(df,ma_short_term,ma_long_term,direction):
     return df_filteed
 
 def upTrend(df):
-    df = df[(df['Close'].rolling(20,0).mean()>df['Close'].rolling(50,0).mean()) & (df['Close'].rolling(50,0).mean()>df['Close'].rolling(100,0).mean())]
+    # df = df[(df['Close'].rolling(20,0).mean()>df['Close'].rolling(50,0).mean()) & (df['Close'].rolling(50,0).mean()>df['Close'].rolling(100,0).mean())]
+    df = df[(df['Close'].rolling(100,0).mean()>df['Close'].rolling(200,0).mean())]
     return df
