@@ -39,22 +39,22 @@ def filterConsecutiveRedDays(df):
 
 def gapUpAfterRedDays(df):
     df=filterConsecutiveRedDays(df)
-    gap_up = df[df['Open']>df['yd1']]
-    gap_held = gap_up[(gap_up['Close']>gap_up['Open'])&(gap_up['ExCl']==1)]
-    # gap_held = gap_up[(gap_up['Close']>gap_up['Open'])]
+    gap_up = df[df['Gap']>0]
+    # gap_held = gap_up[(gap_up['Close']>gap_up['Open'])&(gap_up['ExCl']==1)]
+    gap_held = gap_up[(gap_up['Close']>gap_up['Open'])]
     df = df.drop(['yd1','yd2','yd3','yd4'],axis=1)
-    print(len(gap_up))
     print(len(gap_held))
+    print(len(gap_up))
     print(len(gap_held)/len(gap_up))
 
 def greenDayAfterRedDays(df):
     df=filterConsecutiveRedDays(df)
-    green_day = df[df['Close']>df['yd1']]
-    gap_held = green_day[green_day['Close']>green_day['Open']]
+    gap_up = df[(df['Close']>df['Open'])&(df['Gap']>0)&(df['D2']==1)]
+    green_day = df[(df['Close']>df['Open'])&(df['Gap']>0)]
     df = df.drop(['yd1','yd2','yd3','yd4'],axis=1)
+    print(len(gap_up))
     print(len(green_day))
-    print(len(gap_held))
-    print(len(gap_held)/len(green_day))
+    print(len(gap_up)/len(green_day))
 
 def breakFakeAtMa(df):
     pass
