@@ -11,9 +11,9 @@ df = fd.upTrend(df)
 print(len(df))
 # print(df)
 
-cl.gapDownCloseUp(df)
-
-
+# cl.gapDownCloseUp(df)
+# cl.greenDayAfterRedDays(df)
+cl.gapUpAfterRedDays(df)
 
 # df = df[df['Gap']>0]
 # held_df = fdf[fdf['Held_Open']==1]

@@ -31,16 +31,30 @@ def gapDownCloseUp(df):
     print(len(engulf))
     print(len(engulf)/len(df_gap))
 
-# def gapDownCloseUp(df):
-#     # df_gap = df[(df['Gap']<0) & (df['Open']<df['MA50']) & (df['Close']>df['Open']) & (df['RR']>1) & (df['Rvol']>1)]
-#     df_gap = df[(df['Gap']<0) & (df['Open']<df['MA50']) & (df['Close']>df['Open'])]
-#     engulf = df_gap[df_gap['D2']==1]
-#     print(len(df_gap))
-#     print(len(engulf))
-#     print(len(engulf)/len(df_gap))
+def filterConsecutiveRedDays(df):
+    for i in range(1,5):
+        df[f'yd{i}'] = df['Close'].shift(i)
+    df = df[(df['yd1']<df['yd2'])&(df['yd2']<df['yd3'])&(df['yd3']<df['yd4'])]
+    return df
+
+def gapUpAfterRedDays(df):
+    df=filterConsecutiveRedDays(df)
+    gap_up = df[df['Open']>df['yd1']]
+    gap_held = gap_up[(gap_up['Close']>gap_up['Open'])&(gap_up['ExCl']==1)]
+    # gap_held = gap_up[(gap_up['Close']>gap_up['Open'])]
+    df = df.drop(['yd1','yd2','yd3','yd4'],axis=1)
+    print(len(gap_up))
+    print(len(gap_held))
+    print(len(gap_held)/len(gap_up))
 
 def greenDayAfterRedDays(df):
-    pass
+    df=filterConsecutiveRedDays(df)
+    green_day = df[df['Close']>df['yd1']]
+    gap_held = green_day[green_day['Close']>green_day['Open']]
+    df = df.drop(['yd1','yd2','yd3','yd4'],axis=1)
+    print(len(green_day))
+    print(len(gap_held))
+    print(len(gap_held)/len(green_day))
 
 def breakFakeAtMa(df):
     pass
