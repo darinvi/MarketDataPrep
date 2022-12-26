@@ -49,6 +49,8 @@ def gapUpAfterRedDays(df):
 
 def greenDayAfterRedDays(df):
     df=filterConsecutiveRedDays(df)
+    # gap_up = df[(df['Close']>df['Open'])&(df['Gap']>0)&(df['D2']==1)&(df['ExCl']==1)]
+    # green_day = df[(df['Close']>df['Open'])&(df['Gap']>0)&(df['ExCl']==1)]
     gap_up = df[(df['Close']>df['Open'])&(df['Gap']>0)&(df['D2']==1)]
     green_day = df[(df['Close']>df['Open'])&(df['Gap']>0)]
     df = df.drop(['yd1','yd2','yd3','yd4'],axis=1)
@@ -58,3 +60,10 @@ def greenDayAfterRedDays(df):
 
 def breakFakeAtMa(df):
     pass
+
+def trueRangeRelativeToAtr(df):
+    # larger_range = df[df['TR']>df['ATR']]
+    larger_range = df[df['Range']>df['AR']]
+    print(len(larger_range))
+    print(len(df))
+    print(len(larger_range)/len(df))

@@ -6,14 +6,14 @@ import main_menu_functions as mm
 
 df = dp.marketValuesList()
 df = fd.upTrend(df)
-# df= fd.gapsRelativeToStandardDeviation(df,'out',0.5)
-df = df[df['V_coded']<3]
+df= fd.gapsRelativeToStandardDeviation(df,'out',2)
+# df = df[df['V_coded']<3]
 print(len(df))
 
 # cl.gapDownCloseUp(df)
 cl.gapUpAfterRedDays(df)
 cl.greenDayAfterRedDays(df)
-
+cl.trueRangeRelativeToAtr(df)
 # df = df[df['Gap']>0]
 # held_df = fdf[fdf['Held_Open']==1]
 # print(len(fdf),len(held_df),len(held_df)/len(fdf))
