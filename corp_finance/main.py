@@ -5,7 +5,7 @@ import main_menu_functions as mm
 
 
 df = dp.marketValuesList()
-print(len(df[df['V_coded']==2]))
+# print(len(df[df['V_coded']==2]))
 # df = fd.upTrend(df)
 # df= fd.gapsRelativeToStandardDeviation(df,'out',2)
 df = cl.filterConsecutiveRedDays(df)

@@ -34,7 +34,8 @@ def gapDownCloseUp(df):
 def filterConsecutiveRedDays(df):
     for i in range(1,5):
         df[f'yd{i}'] = df['Close'].shift(i)
-    df = df[(df['yd1']<df['yd2'])&(df['yd2']<df['yd3'])&(df['yd3']<df['yd4'])]
+    df = df[(df['yd1']<df['yd2'])&(df['yd2']<df['yd3'])]
+    # df = df[(df['yd1']<df['yd2'])&(df['yd2']<df['yd3'])&(df['yd3']<df['yd4'])]
     return df
 
 def gapUpAfterRedDays(df):

@@ -12,3 +12,5 @@
 4. gap down & close upper 20% while 20>50>100sma. Next day continuation?
 
 5. Average distance of close relative to extreme in bull market vs bear market. Low volatility vs high volatility.
+
+6. Change of market during different levels of VIX.
