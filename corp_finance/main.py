@@ -5,21 +5,28 @@ import main_menu_functions as mm
 
 
 df = dp.marketValuesList()
-df = fd.upTrend(df)
-df= fd.gapsRelativeToStandardDeviation(df,'out',2)
-# df = df[df['V_coded']<3]
-print(len(df))
+print(len(df[df['V_coded']==2]))
+# df = fd.upTrend(df)
+# df= fd.gapsRelativeToStandardDeviation(df,'out',2)
+df = cl.filterConsecutiveRedDays(df)
+for i in range(1,6):
+    print(f'\n {i}')
+    df1 = df[(df['V_coded']==i)]
+    cl.gapUpAfterRedDays(df1)
+    cl.greenDayAfterRedDays(df1)
 
 # cl.gapDownCloseUp(df)
-cl.gapUpAfterRedDays(df)
-cl.greenDayAfterRedDays(df)
-cl.trueRangeRelativeToAtr(df)
+# cl.trueRangeRelativeToAtr(df)
+
 # df = df[df['Gap']>0]
 # held_df = fdf[fdf['Held_Open']==1]
 # print(len(fdf),len(held_df),len(held_df)/len(fdf))
 # cl.extremeCloseContinuation(fdf,1,'hold')
 
 # print(filtered_std)
+
+# print(df['VIX'].mean())
+# print(df['VIX'].std())
 
 # cl.regression(df,"RR",['Gap','ATR','AR','Rvol'])
 # cl.distributionBasedOnVix(df,'ExCl')
