@@ -5,17 +5,19 @@ import main_menu_functions as mm
 
 
 df = dp.marketValuesList()
-# print(len(df[df['V_coded']==2]))
 # df = fd.upTrend(df)
-# df= fd.gapsRelativeToStandardDeviation(df,'out',2)
-df = cl.filterConsecutiveRedDays(df)
-for i in range(1,6):
-    print(f'\n {i}')
-    df1 = df[(df['V_coded']==i)]
-    cl.gapUpAfterRedDays(df1)
-    cl.greenDayAfterRedDays(df1)
+# df= fd.gapsRelativeToStandardDeviation(df,'out',1)
 
-# cl.gapDownCloseUp(df)
+df = cl.filterConsecutiveRedDays(df)
+df = df[df['V_coded']==2]
+# for i in range(1,6):
+#     print(f'\n {i}')
+#     df1 = df[(df['V_coded']==i)]
+#     cl.gapUpAfterRedDays(df1)
+#     cl.greenDayAfterRedDays(df1)
+
+print(len(df))
+cl.gapDownCloseUp(df)
 # cl.trueRangeRelativeToAtr(df)
 
 # df = df[df['Gap']>0]
