@@ -5,19 +5,24 @@ import main_menu_functions as mm
 
 
 df = dp.marketValuesList()
+df = df[df['VIX']<30]
 # df = fd.upTrend(df)
-# df= fd.gapsRelativeToStandardDeviation(df,'out',1)
+df_std= fd.gapsRelativeToStandardDeviation(df,'out',2)
 
-df = cl.filterConsecutiveRedDays(df)
-df = df[df['V_coded']==2]
+df_std= df_std[(df_std['Gap']>0) & (df_std['ExCl']==1)]
+df_cont= df_std[df_std['D2']==1]
+
+# df = cl.filterConsecutiveRedDays(df)
+# df = df[df['V_coded']==2]
+
 # for i in range(1,6):
 #     print(f'\n {i}')
 #     df1 = df[(df['V_coded']==i)]
 #     cl.gapUpAfterRedDays(df1)
 #     cl.greenDayAfterRedDays(df1)
 
-print(len(df))
-cl.gapDownCloseUp(df)
+# print(len(df))
+# cl.gapDownCloseUp(df)
 # cl.trueRangeRelativeToAtr(df)
 
 # df = df[df['Gap']>0]
@@ -25,12 +30,11 @@ cl.gapDownCloseUp(df)
 # print(len(fdf),len(held_df),len(held_df)/len(fdf))
 # cl.extremeCloseContinuation(fdf,1,'hold')
 
-# print(filtered_std)
-
 # print(df['VIX'].mean())
 # print(df['VIX'].std())
 
-# cl.regression(df,"RR",['Gap','ATR','AR','Rvol'])
+# cl.regression(df,"RR",['Gap','Rvol','V_coded'])
+# cl.regression(df,"RR",['Gap','Rvol','VIX'])
 # cl.distributionBasedOnVix(df,'ExCl')
 # cl.distributionBasedOnVix(df,'Held_Open')
 
@@ -41,3 +45,7 @@ cl.gapDownCloseUp(df)
 # print(df[4780:4782])
 # print(df[5780:5782])
 # print(df[6780:6782])
+
+print(df['ExCl'].unique())
+print(len(df_cont),len(df_std))
+print(len(df_cont)/len(df_std))
