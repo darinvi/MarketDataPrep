@@ -66,3 +66,34 @@ def trueRangeRelativeToAtr(df):
     print(len(larger_range))
     print(len(df))
     print(len(larger_range)/len(df))
+
+# def invasionBackTest(df):
+#     down_days = df[
+#         (df['Close'].shift(1)<df['Close'].shift(2)) &
+#         (df['Close'].shift(2)<df['Close'].shift(3)) &
+#         (df['Close'].shift(3)<df['Close'].shift(4)) &
+#         (df['Close'].shift(4)<df['Close'].shift(5)) &
+#         (((df['Close'].shift(5)-df['Open'])/df['Close'].shift(5))<0.1) &
+#         (((df['Close'].shift(5)-df['Open'])/df['Close'].shift(5))>0.05) &
+#         (df['Gap']<(df['Gap_mean']-df['Gap_std']))
+#     ]
+#     close_up = down_days[
+#         down_days['Close']>down_days['Close']
+#     ]
+#     print(close_up)
+
+def invasionBackTest(df):
+    down_days = df[
+        (df['Close'].shift(1)<df['Close'].shift(2)) &
+        (df['Close'].shift(2)<df['Close'].shift(3)) &
+        (df['Close'].shift(3)<df['Close'].shift(4)) &
+        (df['Close'].shift(4)<df['Close'].shift(5)) &
+        (((df['Close'].shift(5)-df['Open'])/df['Close'].shift(5))<0.1) &
+        (((df['Close'].shift(5)-df['Open'])/df['Close'].shift(5))>0.05) &
+        (df['Gap']<(df['Gap_mean']-df['Gap_std']))
+    ]
+    close_up = down_days[
+        down_days['Close']>down_days['Close']
+    ]
+    print(close_up)
+    print(down_days)

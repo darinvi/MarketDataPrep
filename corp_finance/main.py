@@ -5,7 +5,7 @@ import main_menu_functions as mm
 
 
 df = dp.marketValuesList()
-df['Gap'] = abs(df['Gap'])
+# df['Gap'] = abs(df['Gap'])
 # df = df[df['VIX']<30]
 # df = fd.upTrend(df)
 # # df = fd.downTrend(df)
@@ -37,7 +37,7 @@ df['Gap'] = abs(df['Gap'])
 # print(df['VIX'].mean())
 # print(df['VIX'].std())
 
-cl.regression(df,"RR",['Gap','Rvol','VIX'])
+# cl.regression(df,"RR",['Gap','Rvol','VIX'])
 # cl.regression(df,"Rvol",['Gap'])
 # cl.distributionBasedOnVix(df,'ExCl')
 # cl.distributionBasedOnVix(df,'Held_Open')
@@ -57,3 +57,5 @@ cl.regression(df,"RR",['Gap','Rvol','VIX'])
 
 # print(df['ATR'][100:150])
 # print(df['AR'][100:150])
+
+cl.invasionBackTest(df)
