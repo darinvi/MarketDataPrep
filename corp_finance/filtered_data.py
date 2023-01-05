@@ -20,12 +20,10 @@ def filterByTrend(df,ma_short_term,ma_long_term,direction):
         df_filteed = df[df[f'MA{ma_short_term}']<df[f'MA{ma_long_term}']]
     return df_filteed
 
-def upTrend(df):
-    # df = df[(df['Close'].rolling(20,0).mean()>df['Close'].rolling(50,0).mean()) & (df['Close'].rolling(50,0).mean()>df['Close'].rolling(100,0).mean())]
-    df = df[(df['Close'].rolling(100,0).mean()>df['Close'].rolling(200,0).mean())]
+def upTrend(df,ma_short,ma_long):
+    df = df[(df['Close'].rolling(ma_short,0).mean()>df['Close'].rolling(ma_long,0).mean())]
     return df
 
-def downTrend(df):
-    # df = df[(df['Close'].rolling(20,0).mean()>df['Close'].rolling(50,0).mean()) & (df['Close'].rolling(50,0).mean()>df['Close'].rolling(100,0).mean())]
-    df = df[(df['Close'].rolling(100,0).mean()<df['Close'].rolling(200,0).mean())]
+def downTrend(df,ma_short,ma_long):
+    df = df[(df['Close'].rolling(ma_short,0).mean()<df['Close'].rolling(ma_long,0).mean())]
     return df

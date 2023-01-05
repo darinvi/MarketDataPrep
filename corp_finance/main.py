@@ -3,12 +3,11 @@ import calculations as cl
 import filtered_data as fd
 import main_menu_functions as mm
 
-
 df = dp.marketValuesList()
 # df['Gap'] = abs(df['Gap'])
 # df = df[df['VIX']<30]
-# df = fd.upTrend(df)
-# # df = fd.downTrend(df)
+# df = fd.upTrend(df,100,200)
+# # df = fd.downTrend(df,100,200)
 # df_std= fd.gapsRelativeToStandardDeviation(df,'out',1)
 # df= fd.gapsRelativeToStandardDeviation(df,'out',1)
 # df= df[(df['Gap']>0)]
