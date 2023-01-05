@@ -9,8 +9,15 @@ def gapsRelativeToStandardDeviation(df,position,multiplicator):
         df_filtered = df[abs(df['Gap']-df['Gap_mean'])<df['Gap_std']/multiplicator]
     return df_filtered
 
-def filterByVixValue(df,key):
+def filterByVixCoded(df,key):
     df_filteed = df[df['V_coded']==key]
+    return df_filteed
+
+def filterByVixValue(df,val,relation):
+    if relation.lower()=='above':
+        df_filteed = df[df['VIX']>val]
+    elif relation.lower()=='below':
+        df_filteed = df[df['VIX']<val]
     return df_filteed
 
 def filterByTrend(df,ma_short_term,ma_long_term,direction):

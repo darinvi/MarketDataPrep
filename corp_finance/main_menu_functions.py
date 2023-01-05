@@ -11,3 +11,6 @@ def choosingVariablesForRegression(df):
 def mapColNameToExplanatoryList(df):
     colnames = {key:val for (key,val) in zip(range(1,len(df.columns)+1),df.columns)}
     return colnames
+
+def getFiltered(df):
+    filter_by = input('')
