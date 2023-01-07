@@ -24,8 +24,7 @@ def extremeCloseContinuation(df,rvol,direction):
     print(f'{len(fade_and_extreme_continuation)/len(fade_and_extreme)*100:.2f}%')
 
 def gapDownCloseUp(df):
-    # df_gap = df[(df['Gap']<0) & (df['Low']<df['MA50']) & (df['Close']>df['YCl'])]
-    df_gap = df[(df['Open']>df['MA50']) & (df['Low']<df['MA50']) & (df['Close']>df['Open'])]
+    df_gap = df[(df['Gap']<0) & (df['Close']>df['YCl']) & (df['Rvol']>1)]
     engulf = df_gap[df_gap['D2']==1]
     print(len(df_gap))
     print(len(engulf))
@@ -34,8 +33,8 @@ def gapDownCloseUp(df):
 def filterConsecutiveRedDays(df):
     for i in range(1,5):
         df[f'yd{i}'] = df['Close'].shift(i)
-    df = df[(df['yd1']<df['yd2'])&(df['yd2']<df['yd3'])]
-    # df = df[(df['yd1']<df['yd2'])&(df['yd2']<df['yd3'])&(df['yd3']<df['yd4'])]
+    # df = df[(df['yd1']<df['yd2'])&(df['yd2']<df['yd3'])]
+    df = df[(df['yd1']<df['yd2'])&(df['yd2']<df['yd3'])&(df['yd3']<df['yd4'])]
     return df
 
 def gapUpAfterRedDays(df):
@@ -45,7 +44,7 @@ def gapUpAfterRedDays(df):
     df = df.drop(['yd1','yd2','yd3','yd4'],axis=1)
     print(len(gap_held))
     print(len(gap_up))
-    print(f'{len(gap_held)/len(gap_up):.2f}%')
+    print(f'{len(gap_held)*100/len(gap_up):.2f}%')
 
 def greenDayAfterRedDays(df):
     # gap_up = df[(df['Close']>df['Open'])&(df['Gap']>0)&(df['D2']==1)&(df['ExCl']==1)]
@@ -55,7 +54,7 @@ def greenDayAfterRedDays(df):
     df = df.drop(['yd1','yd2','yd3','yd4'],axis=1)
     print(len(gap_up))
     print(len(green_day))
-    print(f'{len(gap_up)/len(green_day):.2f}%')
+    print(f'{len(gap_up)*100/len(green_day):.2f}%')
 
 def breakFakeAtMa(df):
     pass
@@ -66,21 +65,6 @@ def trueRangeRelativeToAtr(df):
     print(len(larger_range))
     print(len(df))
     print(len(larger_range)/len(df))
-
-# def invasionBackTest(df):
-#     down_days = df[
-#         (df['Close'].shift(1)<df['Close'].shift(2)) &
-#         (df['Close'].shift(2)<df['Close'].shift(3)) &
-#         (df['Close'].shift(3)<df['Close'].shift(4)) &
-#         (df['Close'].shift(4)<df['Close'].shift(5)) &
-#         (((df['Close'].shift(5)-df['Open'])/df['Close'].shift(5))<0.1) &
-#         (((df['Close'].shift(5)-df['Open'])/df['Close'].shift(5))>0.05) &
-#         (df['Gap']<(df['Gap_mean']-df['Gap_std']))
-#     ]
-#     close_up = down_days[
-#         down_days['Close']>down_days['Close']
-#     ]
-#     print(close_up)
 
 def invasionBackTest(df):
     down_days = df[

@@ -2,6 +2,7 @@ import pandas as pd
 import datetime as dt
 from pandas_datareader import data as web
 import yfinance as yf
+import finnhub
 
 def stringToTimeStamp(row):
     row[0] = pd.to_datetime(row[0],format='%m/%d/%Y')
@@ -40,3 +41,8 @@ def getFinalMergedValues()->list:
     values_merged.columns = ['VIX','Open','High','Low','Close','Volume','Rate']
     return values_merged
 
+# def finnhubClient():
+#     epoch = int(time.time())
+#     client = finnhub.Client(api_key="caq8suiad3iecj6adq7g")
+#     data = client.stock_candles('SPY',"1",epoch-4000000,epoch)
+#     return data

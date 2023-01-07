@@ -14,3 +14,5 @@
 5. Average distance of close relative to extreme in bull market vs bear market. Low volatility vs high volatility.
 
 6. Change of market during different levels of VIX.
+
+7. Refression of intraday TR sum divided by daily ATR/TR by VIX.
