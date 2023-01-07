@@ -4,8 +4,12 @@ import filtered_data as fd
 import main_menu_functions as mm
 
 df = dp.marketValuesList()
+df = df[df['Gap']<0]
 df_std= fd.gapsRelativeToStandardDeviation(df,'out',1)
-# print(len(df_std))
+print(len(df_std))
+print(len(df))
+print(len(df_std)/len(df))
+
 df_held = df_std[(df_std['Gap']>0)&(df_std['Held_Open']==1)]
 # print(len(df_held))
 
@@ -64,4 +68,4 @@ print(df['Held_Open'].unique())
 # cl.invasionBackTest(df)
 
 
-cl.averageHigh(df_held)
+# cl.averageHigh(df_held)
