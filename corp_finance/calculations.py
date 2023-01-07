@@ -97,3 +97,9 @@ def invasionBackTest(df):
     ]
     print(close_up)
     print(down_days)
+
+def averageHigh(df):
+    df['High_distance'] = (df['High'] - df['Open'])/df['AR']
+    df['Low_distance'] = (df['Open'] - df['Low'])/df['AR']
+    print(f'Avg.High: {df["High_distance"].mean()}*AR')
+    print(f'Avg.Low: {df["Low_distance"].mean()}*AR')

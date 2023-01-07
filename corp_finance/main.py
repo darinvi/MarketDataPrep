@@ -4,11 +4,14 @@ import filtered_data as fd
 import main_menu_functions as mm
 
 df = dp.marketValuesList()
-# df['Gap'] = abs(df['Gap'])
+df_std= fd.gapsRelativeToStandardDeviation(df,'out',1)
+# print(len(df_std))
+df_held = df_std[(df_std['Gap']>0)&(df_std['Held_Open']==1)]
+# print(len(df_held))
+
 # df = df[df['VIX']<30]
 # df = fd.upTrend(df,100,200)
 # # df = fd.downTrend(df,100,200)
-# df_std= fd.gapsRelativeToStandardDeviation(df,'out',1)
 # df= fd.gapsRelativeToStandardDeviation(df,'out',1)
 # df= df[(df['Gap']>0)]
 
@@ -36,7 +39,8 @@ df = dp.marketValuesList()
 # print(df['VIX'].mean())
 # print(df['VIX'].std())
 
-# cl.regression(df,"RR",['Gap','Rvol','VIX'])
+# cl.regression(df,"AR",['VIX'])
+# cl.regression(df,"AR",['V_coded'])
 # cl.regression(df,"Rvol",['Gap'])
 # cl.distributionBasedOnVix(df,'ExCl')
 # cl.distributionBasedOnVix(df,'Held_Open')
@@ -49,7 +53,7 @@ df = dp.marketValuesList()
 # print(df[5780:5782])
 # print(df[6780:6782])
 
-# print(df['ExCl'].unique())
+print(df['Held_Open'].unique())
 # print(df['D2'].unique())
 # print(len(df_cont),len(df_std))
 # print(len(df_cont)/len(df_std))
@@ -57,4 +61,7 @@ df = dp.marketValuesList()
 # print(df['ATR'][100:150])
 # print(df['AR'][100:150])
 
-cl.invasionBackTest(df)
+# cl.invasionBackTest(df)
+
+
+cl.averageHigh(df_held)
