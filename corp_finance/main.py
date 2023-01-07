@@ -3,10 +3,10 @@ import calculations as cl
 import filtered_data as fd
 import main_menu_functions as mm
 
-
-def main():
-    df = dp.marketValuesList()
-    
+print('wtffff')
+df = dp.marketValuesList()
+def newFilteredDataFrame(df):
+    df_filtered = mm.getFiltered(df)
     # df['Gap'] = abs(df['Gap'])
     # df = df[df['VIX']<30]
     # df = fd.upTrend(df,100,200)
