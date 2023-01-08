@@ -23,35 +23,24 @@ def extremeCloseContinuation(df,rvol,direction):
     print(len(fade_and_extreme_continuation),len(fade_and_extreme))
     print(f'{len(fade_and_extreme_continuation)/len(fade_and_extreme)*100:.2f}%')
 
-def gapDownCloseUp(df):
+def gapDownCloseUpSecondDay(df):
     df_gap = df[(df['Gap']<0) & (df['Close']>df['YCl']) & (df['Rvol']>1)]
     engulf = df_gap[df_gap['D2']==1]
     print(len(df_gap))
     print(len(engulf))
-    print(len(engulf)/len(df_gap))
-
-def filterConsecutiveRedDays(df):
-    for i in range(1,5):
-        df[f'yd{i}'] = df['Close'].shift(i)
-    # df = df[(df['yd1']<df['yd2'])&(df['yd2']<df['yd3'])]
-    df = df[(df['yd1']<df['yd2'])&(df['yd2']<df['yd3'])&(df['yd3']<df['yd4'])]
-    return df
+    print(f"{len(engulf)*100/len(df_gap):.2f}%")
 
 def gapUpAfterRedDays(df):
+    # gap_up = df[(df['Gap']>0)&(df['Rvol']>1)]
     gap_up = df[df['Gap']>0]
-    # gap_held = gap_up[(gap_up['Close']>gap_up['Open'])&(gap_up['ExCl']==1)]
     gap_held = gap_up[(gap_up['Close']>gap_up['Open'])]
-    df = df.drop(['yd1','yd2','yd3','yd4'],axis=1)
     print(len(gap_held))
     print(len(gap_up))
     print(f'{len(gap_held)*100/len(gap_up):.2f}%')
 
 def greenDayAfterRedDays(df):
-    # gap_up = df[(df['Close']>df['Open'])&(df['Gap']>0)&(df['D2']==1)&(df['ExCl']==1)]
-    # green_day = df[(df['Close']>df['Open'])&(df['Gap']>0)&(df['ExCl']==1)]
-    gap_up = df[(df['Close']>df['Open'])&(df['Gap']>0)&(df['D2']==1)]
-    green_day = df[(df['Close']>df['Open'])&(df['Gap']>0)]
-    df = df.drop(['yd1','yd2','yd3','yd4'],axis=1)
+    gap_up = df[(df['Close']>df['Open'])&(df['Gap']>0)&(df['D2']==1)&(df['Rvol']<1)]
+    green_day = df[(df['Close']>df['Open'])&(df['Gap']>0)&(df['Rvol']<1)]
     print(len(gap_up))
     print(len(green_day))
     print(f'{len(gap_up)*100/len(green_day):.2f}%')

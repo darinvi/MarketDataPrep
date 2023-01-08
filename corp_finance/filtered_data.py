@@ -13,10 +13,9 @@ def filterByVixValue(df,key):
     df_filteed = df[df['V_coded']==key]
     return df_filteed
 
-def upTrend(df,ma_short,ma_long):
-    df = df[(df['Close'].rolling(ma_short,0).mean()>df['Close'].rolling(ma_long,0).mean())]
-    return df
-
-def downTrend(df,ma_short,ma_long):
-    df = df[(df['Close'].rolling(ma_short,0).mean()<df['Close'].rolling(ma_long,0).mean())]
+def filterConsecutiveRedDays(df):
+    for i in range(1,5):
+        df[f'yd{i}'] = df['Close'].shift(i)
+    df = df[(df['yd1']<df['yd2'])&(df['yd2']<df['yd3'])]
+    # df = df[(df['yd1']<df['yd2'])&(df['yd2']<df['yd3'])&(df['yd3']<df['yd4'])]
     return df

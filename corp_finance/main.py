@@ -26,12 +26,12 @@ df = dp.marketValuesList()
 # df= fd.gapsRelativeToStandardDeviation(df,'out',1)
 
 
-# df = cl.filterConsecutiveRedDays(df)
-df = fd.upTrend(df,100,200)
-df = df[df['VIX']<20]
-# cl.gapUpAfterRedDays(df)
-# cl.greenDayAfterRedDays(df)
-cl.gapDownCloseUp(df)
+df_pull = fd.filterConsecutiveRedDays(df)
+# df_pull = df_pull[df_pull['MA100']>df_pull['MA200']]
+# df_pull = df_pull[df_pull['VIX']<20]
+cl.gapUpAfterRedDays(df_pull)
+cl.greenDayAfterRedDays(df_pull)
+# cl.gapDownCloseUpSecondDay(df_pull)
 
 # print(len(df))
 # cl.trueRangeRelativeToAtr(df)
