@@ -23,6 +23,9 @@ def marketValuesList()->dict:
     all_val = addCloseHeldOpen(all_val)
     all_val = addStandardDeviation(all_val,'Gap')
     all_val = addMean(all_val,'Gap')
+    all_val = addTrendBool(all_val)
+    all_val = addRvolBool(all_val)
+    all_val = gapStandardDeviation(all_val)
     # all_val = addCloseExtremeRate(all_val)
     # all_val = addOpenHeldRate(all_val)
     print(all_val.columns)
@@ -136,3 +139,34 @@ def checkContinuation(row):
 def addYesterdayClose(df):
     df['YCl'] = df['Close'].shift(1)
     return df
+
+def addTrendBool(df):
+    #Change downtrend val if want to work with red days
+    conditions = [
+        ((df['MA50']>df['MA100']) & (df['MA100']>df['MA200'])),
+        (df['MA50']<df['MA100']) & (df['MA100']<df['MA200'])
+    ]
+    values = [1,0]
+    df['Trend_bool'] = np.select(conditions,values,0)
+    return df
+
+def addRvolBool(df):
+    cond,val = [
+        df['Rvol'] > 1.25
+    ],[
+        1
+    ]
+    df['RVOL_bool'] = np.select(cond,val)
+    return df
+
+def gapStandardDeviation(df):
+    cond = [
+        df['Gap']>df['Gap_mean']+df['Gap_std'],
+        df['Gap']<df['Gap_mean']-df['Gap_std']
+    ]
+    val = [1,0]
+    df['Gap_bool'] = np.select(cond,val,0)
+    return df
+
+def addRelRangeBool(df):
+    pass
