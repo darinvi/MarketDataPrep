@@ -125,18 +125,6 @@ def addCloseHeldOpen(df):
 #     df['Held_Rate'] = abs(df['Held_Open']).rolling(100,0).mean()
 #     return df
 
-# def addNextDayContinuation(df):
-#     df['Close_tomorrow'] = df['Close'].shift(-1)
-#     df['D2'] = df.apply(checkContinuation,axis=1)
-#     del df['Close_tomorrow']
-#     return df
-
-# def checkContinuation(row):
-#     if (row['Close']-row['Open'])*(row['Close_tomorrow']-row['Close'])>0:
-#         return 1
-#     else:
-#         return 0 
-
 def addNextDayContinuation(df):
     cond = [
         ((df['Close']>df['Open']) & (df['Close'].shift(-1)>df['Close'])),
