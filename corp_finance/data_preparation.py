@@ -93,10 +93,11 @@ def addMovingAverages(df):
     return df
 
 def checkCloseAtExtreme(row):
+    #FIX VAL
     if (row['High']-row['Close']) / (row['High']-row['Low']) <= 0.2:
         return 1
     elif (row['Close']-row['Low']) / (row['High']-row['Low']) <= 0.2:
-        return -1
+        return 0
     else:
         return 0
 
