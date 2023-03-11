@@ -28,7 +28,7 @@ def marketValuesList()->dict:
     all_val = gapStandardDeviation(all_val)
     # all_val = addCloseExtremeRate(all_val)
     # all_val = addOpenHeldRate(all_val)
-    print(all_val.columns)
+    # print(all_val.columns)
     return(all_val[200:])
 
 def addRangeToday(df):
