@@ -141,7 +141,7 @@ def addYesterdayClose(df):
     return df
 
 def addTrendBool(df):
-    #Change downtrend val if want to work with red days
+    #Change val
     conditions = [
         ((df['MA50']>df['MA100']) & (df['MA100']>df['MA200'])),
         (df['MA50']<df['MA100']) & (df['MA100']<df['MA200'])
@@ -160,6 +160,7 @@ def addRvolBool(df):
     return df
 
 def gapStandardDeviation(df):
+    #Change val
     cond = [
         df['Gap']>df['Gap_mean']+df['Gap_std'],
         df['Gap']<df['Gap_mean']-df['Gap_std']
