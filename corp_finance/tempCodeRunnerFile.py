@@ -1,1 +1,6 @@
-len(positive_examples)+2
+a = np.array([9,2,8,4,5,0,7,4])
+# b = np.array([1,2,3,4,5,6,7,1])
+# c = pd.DataFrame([9,2,8,4,5,0,7,4])
+# c['b'] = pd.DataFrame([1,2,3,4,5,6,7,1])
+# print(a+b)
+# print(c)

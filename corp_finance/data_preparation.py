@@ -113,7 +113,7 @@ def addCloseAtExtreme(df):
 def checkCloseHeldOpen(row):
     close_upper = bool(row['Close']>row['Open'] and row['Gap'] > 0)
     close_lower = bool(row['Close']<row['Open'] and row['Gap'] < 0)
-    if close_upper or close_lower:
+    if close_upper:# or close_lower:
         return 1
     else:
         return 0 
