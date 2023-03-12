@@ -29,7 +29,7 @@ def marketValuesList()->dict:
     # all_val = addCloseExtremeRate(all_val)
     # all_val = addOpenHeldRate(all_val)
     # print(all_val.columns)
-    all_val[200:].to_csv('market_data.csv')
+    # all_val[200:].to_csv('market_data.csv')
     return(all_val[200:])
 
 def addRangeToday(df):
