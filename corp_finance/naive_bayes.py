@@ -13,10 +13,11 @@ def calculate_r_values(df,feature):
     return {'positive':{1:log_val[0],0:log_val[1]},'negative':{1:log_val[2],0:log_val[3]}}
 
 def handle_score_computations(row,scores,is_positive):
-    score = 1
-    for i in range(len(row)):
-        curr_score = scores['positive'][row[i]] if is_positive else scores['negative'][row[i]]
-        score *= curr_score
+    #
+    score = 0
+    for i,name in enumerate(list(scores.keys())):
+        curr_score = scores[name]['positive'][row[i]] if is_positive else scores[name]['negative'][row[i]]
+        score += curr_score
     return score
 
 df = marketValuesList()
@@ -27,13 +28,19 @@ df_test = df[['Held_Open','Trend_bool','RVOL_bool','Gap_bool','ExCl','D2']][-200
 features = list(df_train.columns)[:-1]
 
 scores = {feature:calculate_r_values(df_train,feature) for feature in features}
-print(scores)
 
 answer_matches = 0
 
-# for el in df_test:
-#     score_positive = 1
-#     score_negative = 1
-#     inputs = el[:-1]
-#     for ft in scores.items():
-#         print(ft)
+handle_score_computations(df_test[1],scores,True)
+
+right_answers = 0
+
+for el in df_test:
+    score_positive = handle_score_computations(el,scores,True)
+    score_negative = handle_score_computations(el,scores,False)
+    expected = 1 if score_positive > score_negative else 0
+    actual = el[-1]
+    if expected == actual:
+        right_answers += 1
+
+print(right_answers, f'{right_answers/len(df_test)*100}%')
