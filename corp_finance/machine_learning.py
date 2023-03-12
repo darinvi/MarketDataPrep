@@ -5,10 +5,10 @@ from sklearn.metrics import accuracy_score
 import graphviz
 
 df = marketValuesList()
-df_bool = df[['Held_Open','Trend_bool','RVOL_bool','Gap_bool','ExCl','D2']]
-# print(df_bool.head(30))
+df_bool = df[['Held_Open','Trend_bool','RVOL_bool','Gap_bool','ExCl','D2']][-300:]
+print(df_bool)
 
-X_train, X_test, y_train, y_test = train_test_split(df_bool.iloc[:, :-1], df_bool.iloc[:, -1], test_size=0.2, random_state=42)
+# X_train, X_test, y_train, y_test = train_test_split(df_bool.iloc[:, :-1], df_bool.iloc[:, -1], test_size=0.2, random_state=42)
 # print(y_train)
 
 # # Create a decision tree classifier with max_depth of 3
