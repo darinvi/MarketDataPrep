@@ -18,6 +18,7 @@ def choosingVariablesForRegression(df):
     explanatory_variables = list(map(lambda x: all_variables[x],explanatory_variables))
     return dependent_variable,explanatory_variables
 
+
 # required for easier UI when choosing variables
 def mapColNameToExplanatoryList(df):
     colnames = {key:val for (key,val) in zip(range(1,len(df.columns)+1),df.columns)}
