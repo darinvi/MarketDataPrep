@@ -1,9 +1,3 @@
-import statsmodels.formula.api as smf
-
-def regression(df,dep,indep):
-    regg = smf.ols(formula=f"{dep} ~ {' + '.join(indep)}", data=df).fit()
-    print(regg.summary())
-
 def distributionBasedOnVix(df,col):
     for val in range(1,6):
         ultra_filtered = df[(df[col]!=0) & (df['V_coded']==val)]
