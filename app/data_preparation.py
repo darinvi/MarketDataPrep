@@ -5,7 +5,7 @@ import numpy as np
 from init_data import getFinalMergedValues
 
 # TO DO: apply all the function in a prettier and shorter way
-def marketValuesList()->dict:
+def marketValuesDataFrame()->dict:
     all_val = getFinalMergedValues()
     all_val = addRangeToday(all_val)
     all_val = addTrueRange(all_val)
@@ -147,15 +147,14 @@ def addCloseHeldOpen(df):
     return df
 
 
-
 # shift(-1) means we take tommorow's value.
-# 1 if today's candle is green (relative to today's open) and the next day saw continuation (closed higher than today's close)
+# 1 if today's candle is green (relative to yesterday's close) and the next day saw continuation (closed higher than today's close)
 # -1 if today's candle is red and the next day closed lower again.
 # 0 if no continuation
 def addNextDayContinuation(df):
     cond = [
-        ((df['Close']>df['Open']) & (df['Close'].shift(-1)>df['Close'])),
-        ((df['Close']<df['Open']) & (df['Close'].shift(-1)<df['Close']))
+        ((df['Close']>df['YCl']) & (df['Close'].shift(-1)>df['Close'])),
+        ((df['Close']<df['YCl']) & (df['Close'].shift(-1)<df['Close']))
     ]
     val = [1,-1]
     df['D2'] = np.select(cond,val,0)
@@ -196,4 +195,12 @@ def addGapStandardDeviation(df):
     ]
     val = [1,-1]
     df['Gap_bool'] = np.select(cond,val,0)
+    return df
+
+# Naive uses a boolean domain (0 and 1). For this reason I will only explain green days in this case.
+# If You want to explain red days, replace 1 with 0 instead and replace -1 with 1.
+def prepareDataForNaive(df, columns):
+    df = df[columns]
+    for column in columns:
+        df[column] = df[column].replace(-1, 0)
     return df

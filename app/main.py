@@ -3,9 +3,11 @@ import calculations as cl
 import filtered_data as fd
 import multiple_regression as mr
 
-df = dp.marketValuesList()
+df = dp.marketValuesDataFrame()
 print(df)
 print(df.columns)
+# df.to_parquet("../market_data.parquet")
+
 # df = df[df['Gap']>0]
 # df_std= fd.gapsRelativeToStandardDeviation(df,'out',2)
 # print(len(df_std))

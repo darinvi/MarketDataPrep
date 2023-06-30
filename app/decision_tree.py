@@ -1,4 +1,4 @@
-from data_preparation import marketValuesList
+from data_preparation import marketValuesDataFrame
 import math
 
 class Node:
@@ -39,6 +39,6 @@ class Tree:
 
 
 
-df = marketValuesList()[-200:]
+df = marketValuesDataFrame()[-200:]
 df_train = df[['Held_Open','Trend_bool','RVOL_bool','Gap_bool','ExCl','D2']][:int(len(df)*0.8)]
 df_test = df[['Held_Open','Trend_bool','RVOL_bool','Gap_bool','ExCl','D2']][int(len(df)*0.8):].values.tolist()

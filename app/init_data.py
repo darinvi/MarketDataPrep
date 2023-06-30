@@ -31,7 +31,7 @@ def clients():
     spy_and_funds = getRatesAndSpyAsList()
     return vix_close,spy_and_funds
 
-def getFinalMergedValues()->list:
+def getFinalMergedValues():
     vix_close,spy_and_funds = clients()
     values_merged = []
     for i in range(-len(spy_and_funds),0,1):
@@ -40,9 +40,3 @@ def getFinalMergedValues()->list:
     values_merged = values_merged.set_index(values_merged.columns[0])
     values_merged.columns = ['VIX','Open','High','Low','Close','Volume','Rate']
     return values_merged
-
-# def finnhubClient():
-#     epoch = int(time.time())
-#     client = finnhub.Client(api_key="caq8suiad3iecj6adq7g")
-#     data = client.stock_candles('SPY',"1",epoch-4000000,epoch)
-#     return data
