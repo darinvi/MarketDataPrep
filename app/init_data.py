@@ -26,7 +26,7 @@ def getRatesAndSpyAsList():
     merged = mergeRateAndSpy(spy,funds_rate)
     return merged
 
-def clients()->list:
+def clients():
     vix_close = pd.read_csv('VIX_History.csv')['CLOSE'].values.tolist()
     spy_and_funds = getRatesAndSpyAsList()
     return vix_close,spy_and_funds

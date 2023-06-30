@@ -35,7 +35,7 @@ class Tree:
         if len(df[' D2'].unique()==1):
             pass
         else:
-            best_feature = pick_best_feature(df)
+            best_feature = Tree.pick_best_feature(df)
 
 
 

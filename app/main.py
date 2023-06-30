@@ -1,9 +1,11 @@
 import data_preparation as dp
 import calculations as cl
 import filtered_data as fd
-import main_menu_functions as mm
+import multiple_regression as mr
 
 df = dp.marketValuesList()
+print(df)
+print(df.columns)
 # df = df[df['Gap']>0]
 # df_std= fd.gapsRelativeToStandardDeviation(df,'out',2)
 # print(len(df_std))
@@ -26,11 +28,11 @@ df = dp.marketValuesList()
 # df= fd.gapsRelativeToStandardDeviation(df,'out',1)
 
 
-df_pull = fd.filterConsecutiveRedDays(df)
+# df_pull = fd.filterConsecutiveRedDays(df)
 # df_pull = df_pull[df_pull['MA100']>df_pull['MA200']]
 # df_pull = df_pull[df_pull['VIX']<20]
-cl.gapUpAfterRedDays(df_pull)
-cl.greenDayAfterRedDays(df_pull)
+# cl.gapUpAfterRedDays(df_pull)
+# cl.greenDayAfterRedDays(df_pull)
 # cl.gapDownCloseUpSecondDay(df_pull)
 
 # print(len(df))

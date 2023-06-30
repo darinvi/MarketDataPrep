@@ -25,6 +25,7 @@ def marketValuesList()->dict:
     all_val = addMean(all_val,'Gap', 200)
     all_val = addTrendBool(all_val)
     all_val = addRvolBool(all_val, 1.25)
+    all_val = addGapStandardDeviation(all_val)
     # all_val[200:].to_parquet('market_data.parquet')
     return all_val[200:]
 
@@ -188,7 +189,7 @@ def addRvolBool(df, val):
 # 1 if the gap higher of a stock is more than the average gap plus the standard deviation of the gaps.
 # -1 if the gap lower is more than the average gap minus the std. 
 # 0 in any other case 
-def gapStandardDeviation(df):
+def addGapStandardDeviation(df):
     cond = [
         df['Gap']>df['Gap_mean']+df['Gap_std'],
         df['Gap']<df['Gap_mean']-df['Gap_std']
